@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - KU Admission</title>
+    <!-- Embed Font Awesome CSS directly -->
+    <style>
+        /*!
+         * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
+         * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+         */
+        /* Linking CDN for brevity. For true single file, paste the minified CSS here */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+        /* Custom Styles */
+        :root {
+            --header-footer-bg: #008080; /* Teal-like color */
+            --header-footer-text: #ffffff;
+            --active-nav-bg: #f0ad4e; /* Orange */
+            --active-nav-text: #333333;
+            --content-bg: #f0fff0; /* Very light green/Honeydew */
+            --table-header-bg: #1E8474; /* Darker teal/green from table */
+            --text-color: #333333;
+            --link-color: #0056b3;
+            --label-color: #555; /* Color for labels like Name, Father */
+            --border-color: #e0e0e0; /* Light border color */
+            --input-bg: #f8f9fa; /* Light background for read-only fields/placeholders */
+            --bengali-font: 'SolaimanLipi', 'Segoe UI', sans-serif;
+            --english-font: 'Segoe UI', Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--bengali-font); background-color: #f4f4f4; color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 90%; max-width: 1100px; /* Adjusted width */ margin: 0 auto; }
+        header { background-color: var(--header-footer-bg); color: var(--header-footer-text); padding: 10px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: bold; font-size: 1.5em; background-color: #fff; color: var(--header-footer-bg); padding: 5px 10px; border-radius: 4px; display: flex; align-items: center; justify-content: center; min-width: 50px; min-height: 40px; font-family: var(--english-font); }
+        nav ul { list-style: none; display: flex; align-items: center; padding: 0; margin: 0; }
+        nav ul li { margin-left: 5px; }
+        nav ul li a { color: var(--header-footer-text); text-decoration: none; padding: 10px 12px; display: flex; align-items: center; border-radius: 4px; font-family: var(--english-font); font-size: 0.9em; transition: background-color 0.3s ease; }
+        nav ul li a i { margin-right: 6px; }
+        nav ul li a:hover, nav ul li a:focus { background-color: rgba(255, 255, 255, 0.1); }
+        nav ul li a.active { background-color: var(--active-nav-bg); color: var(--active-nav-text); font-weight: bold; }
+        .logout { margin-left: auto; }
+        .logout a { color: var(--header-footer-text); text-decoration: none; padding: 10px 15px; display: flex; align-items: center; font-family: var(--english-font); font-size: 0.9em; transition: background-color 0.3s ease; border-radius: 4px; }
+        .logout a:hover { background-color: rgba(255, 255, 255, 0.1); }
+        .logout a i { margin-right: 6px; }
+
+        /* Main Content Styles */
+        main { padding: 30px 0; flex-grow: 1; }
+        .profile-box { background-color: var(--content-bg); padding: 25px 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .profile-title { text-align: center; margin-bottom: 30px; font-size: 1.6em; color: var(--table-header-bg); font-weight: bold; }
+
+        /* Info Row Styling */
+        .info-section { margin-bottom: 20px; }
+        .info-row { display: flex; border-bottom: 1px solid var(--border-color); padding: 12px 0; align-items: center; }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { flex: 0 0 200px; /* Fixed width for labels */ color: var(--label-color); font-weight: bold; font-size: 0.95em; padding-right: 15px; }
+        .info-value { flex-grow: 1; font-size: 0.95em; font-family: var(--english-font); /* Primarily English for values */ }
+        .info-value.bengali { font-family: var(--bengali-font); } /* Add this class for Bengali values */
+
+        /* Specific styling for photo row */
+        .photo-row { align-items: flex-start; } /* Align top for label and photo */
+        .profile-photo { max-width: 150px; max-height: 180px; border: 1px solid var(--border-color); padding: 3px; background-color: #fff; }
+        .profile-photo img { display: block; width: 100%; height: auto; }
+
+        /* Styling for Checkboxes and Radios */
+        .checkbox-group, .radio-group { display: flex; flex-wrap: wrap; gap: 20px; /* Spacing between items */ }
+        .checkbox-group label, .radio-group label { display: flex; align-items: center; cursor: pointer; font-size: 0.9em; }
+        .checkbox-group input[type="checkbox"], .radio-group input[type="radio"] { margin-right: 8px; cursor: pointer; }
+
+        /* Styling for input-like fields (read-only appearance) */
+        .input-display { background-color: var(--input-bg); border: 1px solid var(--border-color); padding: 8px 12px; border-radius: 4px; font-size: 0.95em; min-height: 38px; /* Match typical input height */ display: flex; align-items: center; }
+        .password-note { font-size: 0.85em; color: #666; font-style: italic; }
+
+        /* Section Title for Exam Medium */
+        .section-subtitle { font-size: 1.1em; font-weight: bold; color: var(--table-header-bg); margin-bottom: 10px; border-top: 2px solid var(--border-color); padding-top: 20px; margin-top: 20px; }
+
+        /* Table Styles */
+        .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 15px; }
+        .data-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-radius: 5px; overflow: hidden; }
+        .data-table thead th { background-color: var(--table-header-bg); color: var(--header-footer-text); padding: 10px 12px; text-align: center; font-weight: bold; font-size: 0.9em; border: 1px solid rgba(255, 255, 255, 0.1); white-space: nowrap; }
+        .data-table tbody td { padding: 10px 12px; text-align: center; border: 1px solid var(--border-color); background-color: #fff; font-size: 0.9em; font-family: var(--english-font); white-space: nowrap; }
+        .data-table tbody tr:nth-child(even) td { background-color: #f9f9f9; }
+        /* Subject grades table needs specific header color */
+        .subject-grades-table thead th { background-color: var(--table-header-bg); font-size: 0.85em; } /* Same color, maybe smaller font */
+
+        /* Footer Styles (Same as before) */
+        footer { background-color: var(--header-footer-bg); color: var(--header-footer-text); padding: 20px 0; text-align: center; font-size: 0.9em; position: relative; flex-shrink: 0; margin-top: 40px; }
+        .footer-container p { margin-bottom: 8px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+        .footer-container p:last-child { margin-bottom: 0; }
+        .footer-container p i { margin-right: 8px; font-size: 1.1em; }
+        .help-widget { position: fixed; bottom: 15px; right: 15px; z-index: 1010; text-align: center; }
+        .help-widget .close-widget { position: absolute; top: -5px; right: -5px; background-color: #555; color: white; border-radius: 50%; width: 20px; height: 20px; line-height: 18px; text-align: center; font-size: 14px; cursor: pointer; border: 1px solid #fff; font-family: var(--english-font); }
+        .help-widget .help-graphic { display: block; background-color: #3498db; color: white; padding: 10px 20px; border-radius: 5px 5px 0 0; font-size: 1.5em; font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif; margin-bottom: -1px; }
+        .help-widget .help-button { background-color: #d9534f; color: white; border: none; padding: 10px 20px; font-size: 1em; font-weight: bold; cursor: pointer; border-radius: 0 0 5px 5px; width: 100%; font-family: var(--english-font); transition: background-color 0.3s ease; }
+        .help-widget .help-button:hover { background-color: #c9302c; }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            nav ul li a { padding: 8px 8px; font-size: 0.85em; }
+            .logout a { padding: 8px 10px; font-size: 0.85em; }
+            .logo { font-size: 1.3em; }
+            .profile-title { font-size: 1.4em; }
+            .info-label { flex-basis: 150px; font-size: 0.9em; }
+            .info-value { font-size: 0.9em; }
+            .data-table thead th, .data-table tbody td { font-size: 0.85em; padding: 8px 10px; }
+            .subject-grades-table thead th { font-size: 0.8em; }
+        }
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; align-items: flex-start; }
+            nav { margin-top: 10px; width: 100%; overflow-x: auto; }
+            nav ul { justify-content: flex-start; flex-wrap: nowrap; }
+            nav ul li { margin-left: 0; margin-right: 5px; }
+            .logout { margin-top: 10px; margin-left: 0; align-self: flex-start; }
+            main { padding: 20px 0; }
+            .profile-box { padding: 20px 15px;}
+            .profile-title { font-size: 1.3em; margin-bottom: 20px; }
+            .info-row { flex-direction: column; align-items: flex-start; padding: 10px 0; }
+            .info-label { flex-basis: auto; margin-bottom: 5px; font-size: 0.9em; }
+            .info-value { width: 100%; }
+            .profile-photo { max-width: 120px; margin-top: 5px; }
+            .photo-row .info-label { margin-bottom: 10px; } /* More space above photo */
+            .checkbox-group, .radio-group { gap: 15px; }
+            .checkbox-group label, .radio-group label { font-size: 0.85em; }
+            .input-display { font-size: 0.9em; }
+            .section-subtitle { font-size: 1em; }
+            /* Tables will scroll horizontally due to .table-responsive */
+            .footer-container p { font-size: 0.85em; flex-direction: column; align-items: center; }
+            .footer-container p i { margin-right: 0; margin-bottom: 3px; }
+        }
+        @media (max-width: 480px) {
+            .logo { font-size: 1.1em; padding: 4px 8px; }
+            nav ul li a { padding: 6px 6px; font-size: 0.8em; }
+            .logout a { padding: 6px 8px; font-size: 0.8em; }
+            .profile-title { font-size: 1.2em; }
+            .info-label { font-size: 0.85em; }
+            .info-value { font-size: 0.85em; }
+            .input-display { font-size: 0.85em; }
+            .data-table thead th, .data-table tbody td { font-size: 0.8em; padding: 6px 8px; }
+             .subject-grades-table thead th { font-size: 0.75em; }
+            .help-widget { right: 10px; bottom: 10px; }
+            .help-widget .help-graphic { font-size: 1.2em; padding: 8px 15px; }
+            .help-widget .help-button { font-size: 0.9em; padding: 8px 15px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">KU</div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="application.html"><i class="fas fa-edit"></i> Application</a></li>
+                    <li><a href="application-payment.html"><i class="fas fa-money-check-alt"></i> Application Payment</a></li>
+                    <li><a href="admit.html"><i class="fas fa-id-card"></i> Admit Card</a></li>
+                    <li><a href="result.html"><i class="fas fa-poll"></i> Result</a></li>
+                    <li><a href="choice.html"><i class="fas fa-check-square"></i> Choice</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container content-container">
+            <div class="profile-box">
+                <h2 class="profile-title">আবেদনকারীর তথ্য</h2>
+
+                <div class="info-section">
+                    <div class="info-row">
+                        <span class="info-label bengali">নাম</span>
+                        <span class="info-value">ARUP BHOWMIK PRITOM</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label bengali">পিতার নাম</span>
+                        <span class="info-value">ARUN CHANDRA BHOWMIK</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label bengali">মাতার নাম</span>
+                        <span class="info-value">SHIPRA RANI BHOWMIK</span>
+                    </div>
+                     <div class="info-row photo-row">
+                        <span class="info-label bengali">ছবি</span>
+                        <span class="info-value">
+                            <div class="profile-photo">
+                                <!-- Placeholder Image -->
+                                <img src="https://via.placeholder.com/150x180.png?text=Applicant+Photo" alt="Applicant Photo">
+                                <!-- Replace with actual image path: <img src="/path/to/your/image.jpg" alt="Applicant Photo"> -->
+                            </div>
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label bengali">কোটা</span>
+                        <span class="info-value">
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="quota" value="freedom_fighter"> মুক্তিযোদ্ধা</label>
+                                <label><input type="checkbox" name="quota" value="tribal"> উপজাতি</label>
+                                <label><input type="checkbox" name="quota" value="bksp"> বি কে এস পি</label>
+                            </div>
+                        </span>
+                    </div>
+                     <div class="info-row">
+                        <span class="info-label">ইমেইল</span>
+                        <span class="info-value">pritombhowmik5595@gmail.com</span>
+                    </div>
+                     <div class="info-row">
+                        <span class="info-label bengali">পাসওয়ার্ড</span>
+                        <span class="info-value password-note">পাসওয়ার্ড পরিবর্তন করতে চাইলে নতুন পাসওয়ার্ড টাইপ করুন। অন্যথায় ফাঁকা রাখুন। সর্বোচ্চ ৪ টি।</span>
+                        <!-- Optional: Add an actual input field if password change is allowed
+                        <input type="password" class="info-value" style="border: 1px solid #ccc; padding: 5px;"> -->
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label bengali">মোবাইল ফোন নম্বর</span>
+                        <span class="info-value input-display">01731122454</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label bengali">অভিভাবকের নাম (পিতার অবর্তমানে)</span>
+                        <span class="info-value input-display">Shipra Bhowmik</span> <!-- Example, adjust as needed -->
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label bengali">স্থানীয় অভিভাবকের নাম</span>
+                        <span class="info-value input-display">Arun Bhowmik</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label bengali">স্থানীয় অভিভাবকের সাথে সম্পর্ক</span>
+                        <span class="info-value input-display">Father</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label bengali">স্থানীয় অভিভাবকের ঠিকানা</span>
+                        <span class="info-value input-display">4no Monir Hossain Lane, Narinda</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label bengali">স্থানীয় অভিভাবকের মোবাইল</span>
+                        <span class="info-value input-display">01731122454</span>
+                    </div>
+                     <div class="info-row">
+                        <span class="info-label bengali">স্থায়ী ঠিকানা</span>
+                        <span class="info-value input-display">Dhanrai, Dhantara, Jadatpur-(1345), Dhaka</span>
+                    </div>
+                     <div class="info-row">
+                        <span class="info-label bengali">বর্তমান ঠিকানা</span>
+                        <span class="info-value input-display">4no Monir Hossain Lane, Narinda</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label bengali">যে মাধ্যমে পরীক্ষা দিতে আগ্রহী</span>
+                        <span class="info-value">
+                            <div class="radio-group">
+                                <label><input type="radio" name="exam_medium" value="english" checked> ইংরেজি</label>
+                                <label><input type="radio" name="exam_medium" value="bengali"> বাংলা</label>
+                            </div>
+                        </span>
+                    </div>
+                     <div class="info-row">
+                        <span class="info-label bengali">ধর্ম</span>
+                         <span class="info-value">
+                            <div class="radio-group">
+                                <label><input type="radio" name="religion" value="islam" checked> ইসলাম</label>
+                                <label><input type="radio" name="religion" value="sanatan"> সনাতন</label>
+                                <label><input type="radio" name="religion" value="christian"> খ্রিস্টান</label>
+                                <label><input type="radio" name="religion" value="buddhist"> বৌদ্ধ</label>
+                                <label><input type="radio" name="religion" value="other"> অন্যান্য</label>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Academic Information Table -->
+                <h3 class="section-subtitle">Academic Information</h3>
+                <div class="table-responsive">
+                    <table class="data-table academic-table">
+                        <thead>
+                            <tr>
+                                <th>Exam</th>
+                                <th>Roll</th>
+                                <th>Registration</th>
+                                <th>Board</th>
+                                <th>Year</th>
+                                <th>Group</th>
+                                <th>GPA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SSC</td>
+                                <td>100208</td>
+                                <td>1910786141</td>
+                                <td>DHAKA</td>
+                                <td>2022</td>
+                                <td>SCIENCE</td>
+                                <td>5.00</td>
+                            </tr>
+                             <tr>
+                                <td>HSC</td>
+                                <td>158237</td>
+                                <td>1910786141</td>
+                                <td>DHAKA</td>
+                                <td>2024</td>
+                                <td>SCIENCE</td>
+                                <td>5.00</td>
+                            </tr>
+                            <!-- Add more rows if needed -->
+                        </tbody>
+                    </table>
+                </div>
+
+                 <!-- Subject Grades Table -->
+                 <h3 class="section-subtitle">Subject Wise Grade</h3>
+                 <div class="table-responsive">
+                    <table class="data-table subject-grades-table">
+                        <thead>
+                            <tr>
+                                <th>SSC English</th>
+                                <th>HSC English</th>
+                                <th>HSC Bangla</th>
+                                <th>HSC Physics</th>
+                                <th>HSC Chemistry</th>
+                                <th>HSC Math</th>
+                                <th>HSC Biology</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5.0</td>
+                                <td>4.0</td>
+                                <td>5.0</td>
+                                <td>5.0</td>
+                                <td>5.0</td>
+                                <td>5.0</td>
+                                <td>5.0</td>
+                            </tr>
+                            <!-- This table likely only needs one row per student -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div> <!-- end profile-box -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <p><i class="far fa-calendar-alt"></i> অনলাইনে আবেদনের সময়সীমা: 10-01-2025 থেকে 10-02-2025</p>
+            <p>সর্বস্বত্ব © সংরক্ষিত | খুলনা বিশ্ববিদ্যালয় ভর্তি কমিটি ২০২৪-২০২৫</p>
+            <p>কারিগরি সহযোগিতায় - KU ICT CELL</p>
+        </div>
+
+        <div class="help-widget">
+            <span class="close-widget">&times;</span>
+            <div class="help-graphic">We are here!</div>
+            <button class="help-button">KU Admission Help Desk</button>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JS to close the help widget (Same as before)
+        const helpWidget = document.querySelector('.help-widget');
+        const closeButton = document.querySelector('.close-widget');
+
+        if (closeButton && helpWidget) {
+            closeButton.addEventListener('click', () => {
+                helpWidget.style.display = 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>

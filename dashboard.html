@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - KU Admission</title>
+    <!-- Embed Font Awesome CSS directly -->
+    <style>
+        /*!
+         * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
+         * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+         */
+        /* Embedded Font Awesome CSS (minified - content omitted for brevity in this explanation, but included in the code block below) */
+        /* NOTE: The full Font Awesome CSS is very long. I will include a relevant subset or link to the full CDN for actual use. */
+        /* For this example, I'll include the necessary CSS rules for the used icons directly */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'); /* Linking for simplicity in this example. For true single file, paste the content here */
+
+        /* Custom Styles */
+        :root {
+            --header-footer-bg: #008080; /* Teal-like color */
+            --header-footer-text: #ffffff;
+            --active-nav-bg: #f0ad4e; /* Orange */
+            --active-nav-text: #333333;
+            --content-bg: #ffffff;
+            --text-color: #333333;
+            --link-color: #0056b3;
+            --bengali-font: 'SolaimanLipi', 'Segoe UI', sans-serif; /* Common Bengali font */
+            --english-font: 'Segoe UI', Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--bengali-font);
+            background-color: #f4f4f4; /* Light grey background for contrast */
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-footer-bg);
+            color: var(--header-footer-text);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            /* In a real scenario, use an <img> tag */
+            font-weight: bold;
+            font-size: 1.5em;
+            /* Placeholder for logo image */
+            background-color: #fff;
+            color: var(--header-footer-bg);
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 50px; /* Adjust as needed */
+            min-height: 40px; /* Adjust as needed */
+            font-family: var(--english-font);
+        }
+         /* If using an image:
+         .logo img {
+             height: 40px;
+             width: auto;
+         }
+         */
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin-left: 5px; /* Reduced margin */
+        }
+
+        nav ul li a {
+            color: var(--header-footer-text);
+            text-decoration: none;
+            padding: 10px 12px; /* Adjusted padding */
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+            font-family: var(--english-font);
+            font-size: 0.9em; /* Slightly smaller font */
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a i {
+            margin-right: 6px;
+        }
+
+        nav ul li a:hover,
+        nav ul li a:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        nav ul li a.active {
+            background-color: var(--active-nav-bg);
+            color: var(--active-nav-text);
+            font-weight: bold;
+        }
+
+        .logout {
+            margin-left: auto; /* Push logout to the right */
+        }
+
+        .logout a {
+            color: var(--header-footer-text);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            font-family: var(--english-font);
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+            border-radius: 4px;
+        }
+         .logout a:hover {
+             background-color: rgba(255, 255, 255, 0.1);
+         }
+
+        .logout a i {
+            margin-right: 6px;
+        }
+
+        /* Main Content Styles */
+        main {
+            background-color: var(--content-bg);
+            padding: 30px 0;
+            min-height: calc(100vh - 150px); /* Adjust based on header/footer height */
+        }
+
+        .content-container {
+            max-width: 900px; /* Limit content width */
+        }
+
+        .welcome-message,
+        .instruction-heading {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.2em;
+            color: #20615B; /* Darker teal color */
+            font-weight: bold;
+        }
+        .welcome-message {
+            font-size: 1.3em;
+        }
+         .welcome-message span { /* For styling the name if needed */
+              font-weight: bold;
+              color: #D9534F; /* Example color */
+         }
+
+
+        .instructions-list {
+            list-style: none; /* Remove default */
+            padding-left: 0; /* Remove default */
+            max-width: 700px;
+            margin: 0 auto; /* Center the list */
+        }
+
+        .instructions-list li {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-left: 3px solid var(--header-footer-bg); /* Add a left border */
+            padding-left: 15px;
+            line-height: 1.8;
+        }
+
+        .instructions-list li::before {
+             /* Custom numbering if needed, or use manual text */
+             /* content: counter(instruction-counter) ". "; */
+             /* counter-increment: instruction-counter; */
+             /* font-weight: bold; */
+             /* color: var(--header-footer-bg); */
+             /* margin-right: 5px; */
+        }
+
+        .instructions-list .item-number {
+            font-weight: bold;
+            color: var(--header-footer-bg);
+            margin-right: 5px;
+            font-family: var(--bengali-font); /* Ensure Bengali numeral font */
+        }
+
+        .instructions-list li a {
+            font-weight: bold;
+            color: var(--link-color);
+            text-decoration: none;
+            font-family: var(--english-font); /* English font for menu item names */
+        }
+
+        .instructions-list li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--header-footer-bg);
+            color: var(--header-footer-text);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        .footer-container p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-container p:last-child {
+            margin-bottom: 0;
+        }
+
+        .footer-container p i {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+
+        /* Help Widget Styles */
+        .help-widget {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 1010;
+            text-align: center;
+        }
+
+        .help-widget .close-widget {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #555;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            line-height: 18px;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid #fff;
+            font-family: var(--english-font);
+        }
+
+        .help-widget .help-graphic {
+            /* Placeholder style for "We are here!" graphic */
+            display: block;
+            background-color: #3498db; /* Blueish */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Mimic font style */
+            margin-bottom: -1px; /* Overlap button slightly */
+            /* If using image: */
+            /* content: url('path/to/we-are-here.png'); */
+            /* width: 120px; */
+            /* height: auto; */
+        }
+
+        .help-widget .help-button {
+            background-color: #d9534f; /* Red */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 0 0 5px 5px;
+            width: 100%; /* Match graphic width */
+            font-family: var(--english-font);
+            transition: background-color 0.3s ease;
+        }
+
+        .help-widget .help-button:hover {
+             background-color: #c9302c; /* Darker red */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            nav ul li a {
+                padding: 8px 8px;
+                font-size: 0.85em;
+            }
+             .logout a {
+                 padding: 8px 10px;
+                 font-size: 0.85em;
+             }
+             .logo {
+                 font-size: 1.3em;
+             }
+        }
+
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+             nav {
+                 margin-top: 10px;
+                 width: 100%;
+                 overflow-x: auto; /* Allow horizontal scrolling for nav */
+             }
+             nav ul {
+                 justify-content: flex-start;
+                 flex-wrap: nowrap; /* Prevent wrapping */
+             }
+             nav ul li {
+                margin-left: 0;
+                margin-right: 5px; /* Add margin between items */
+            }
+             .logout {
+                 margin-top: 10px;
+                 margin-left: 0; /* Reset margin */
+                 align-self: flex-start; /* Align with logo */
+             }
+
+            .main {
+                padding: 20px 0;
+            }
+            .welcome-message, .instruction-heading {
+                font-size: 1.1em;
+            }
+            .instructions-list {
+                padding-left: 0;
+                max-width: 100%;
+            }
+            .instructions-list li {
+                font-size: 1em;
+            }
+            .footer-container p {
+                font-size: 0.85em;
+                flex-direction: column; /* Stack icon and text on small screens */
+                align-items: center;
+            }
+             .footer-container p i {
+                 margin-right: 0;
+                 margin-bottom: 3px;
+             }
+        }
+
+         @media (max-width: 480px) {
+             .logo {
+                 font-size: 1.1em;
+                 padding: 4px 8px;
+             }
+             nav ul li a {
+                padding: 6px 6px;
+                font-size: 0.8em;
+            }
+            .logout a {
+                 padding: 6px 8px;
+                 font-size: 0.8em;
+            }
+             .help-widget {
+                 right: 10px;
+                 bottom: 10px;
+             }
+             .help-widget .help-graphic {
+                 font-size: 1.2em;
+                 padding: 8px 15px;
+             }
+             .help-widget .help-button {
+                 font-size: 0.9em;
+                 padding: 8px 15px;
+             }
+         }
+
+    </style>
+    <!-- Note: For a true single file without CDN, paste the full content of Font Awesome CSS here -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
+
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <!-- Placeholder for actual logo -->
+                KU
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="application.html"><i class="fas fa-edit"></i> Application</a></li>
+                    <li><a href="application-payment.html"><i class="fas fa-money-check-alt"></i> Application Payment</a></li>
+                    <li><a href="admit.html"><i class="fas fa-id-card"></i> Admit Card</a></li>
+                    <li><a href="result.html"><i class="fas fa-poll"></i> Result</a></li>
+                    <li><a href="choice.html"><i class="fas fa-check-square"></i> Choice</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container content-container">
+            <p class="welcome-message">
+                সুপ্রিয় <span>ARUP BHOWMIK PRITOM</span>,<br>
+                খুলনা বিশ্ববিদ্যালয়ে ভর্তি পরীক্ষায় আবেদনকারীদের ড্যাশবোর্ডে এ আপনাকে স্বাগতম।
+            </p>
+            <p class="instruction-heading">
+                অবশিষ্ট প্রক্রিয়া সম্পন্ন করার জন্য নিম্নোক্ত কর্ম সম্পাদন করুন।
+            </p>
+
+            <ol class="instructions-list">
+                <li><span class="item-number">১।</span> <a href="#">Profile</a> মেনু থেকে প্রয়োজনে আপনার তথ্য হালনাগাদ করুন।</li>
+                <li><span class="item-number">২।</span> <a href="#">Application</a> মেনু থেকে আপনার আবেদনকৃত ইউনিটসমূহ যাচাই, সংযোজন অথবা বিয়োজন করুন।</li>
+                <li><span class="item-number">৩।</span> <a href="#">Application Payment</a> মেনু থেকে আপনার আবেদনকৃত ইউনিটের ফিস পরিশোধ করুন ও পেমেন্ট স্লিপটি সংরক্ষণ করুন।</li>
+                <li><span class="item-number">৪।</span> <a href="#">Admit Card</a> মেনু থেকে যথাসময়ে আপনার প্রবেশপত্র ডাউনলোড করুন।</li>
+                <li><span class="item-number">৫।</span> <a href="#">Result</a> মেনু থেকে যথাসময়ে ইউনিটভিত্তিক ফলাফল দেখুন।</li>
+                <li><span class="item-number">৬।</span> <a href="#">Choice</a> মেনু থেকে যথাসময়ে ভর্তিচ্ছু ডিসিপ্লিনসমূহের পছন্দক্রম নির্বাচন করুন।</li>
+            </ol>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <p><i class="far fa-calendar-alt"></i> অনলাইনে আবেদনের সময়সীমা: 10-01-2025 থেকে 10-02-2025</p>
+            <p>সর্বস্বত্ব © সংরক্ষিত | খুলনা বিশ্ববিদ্যালয় ভর্তি কমিটি ২০২৪-২০২৫</p>
+            <p>কারিগরি সহযোগিতায় - KU ICT CELL</p>
+        </div>
+
+        <div class="help-widget">
+            <span class="close-widget">&times;</span>
+            <!-- Placeholder for "We are here!" graphic -->
+            <div class="help-graphic">We are here!</div>
+            <button class="help-button">KU Admission Help Desk</button>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JS to close the help widget
+        const helpWidget = document.querySelector('.help-widget');
+        const closeButton = document.querySelector('.close-widget');
+
+        if (closeButton && helpWidget) {
+            closeButton.addEventListener('click', () => {
+                helpWidget.style.display = 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>

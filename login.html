@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - KU Admission</title>
+    <!-- Embed Font Awesome CSS directly -->
+    <style>
+        /*!
+         * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
+         * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+         */
+        /* Linking CDN for brevity. For true single file, paste the minified CSS here */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+        /* Custom Styles (Same as previous login page) */
+        :root {
+            --header-footer-bg: #008080; /* Teal-like color */
+            --header-footer-text: #ffffff;
+            --header-login-btn-bg: #f0ad4e; /* Orange for header Login button */
+            --header-login-btn-text: #333333;
+            --content-bg: #ffffff; /* White background for main area */
+            --login-box-bg: #eaf6ff; /* Light blueish background for login box */
+            --text-color: #333333;
+            --link-color: #0056b3;
+            --highlight-color: #d9534f; /* Reddish for Forgot Password & Errors */
+            --login-btn-bg: #5cb85c; /* Green for form Login button */
+            --login-btn-text: #ffffff;
+            --input-border: #ced4da;
+            --input-icon-bg: #e9ecef;
+            --bengali-font: 'SolaimanLipi', 'Segoe UI', sans-serif;
+            --english-font: 'Segoe UI', Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--bengali-font); background-color: var(--content-bg); color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        header { background-color: var(--header-footer-bg); color: var(--header-footer-text); padding: 10px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: bold; font-size: 1.5em; background-color: #fff; color: var(--header-footer-bg); padding: 5px 10px; border-radius: 4px; display: flex; align-items: center; justify-content: center; min-width: 50px; min-height: 40px; font-family: var(--english-font); }
+        nav ul { list-style: none; display: flex; align-items: center; padding: 0; margin: 0; }
+        nav ul li { margin-left: 15px; }
+        nav ul li:first-child { margin-left: 0; }
+        nav ul li a { color: var(--header-footer-text); text-decoration: none; padding: 8px 10px; display: flex; align-items: center; border-radius: 4px; font-family: var(--english-font); font-size: 0.95em; transition: background-color 0.3s ease; }
+        nav ul li a i { margin-right: 6px; }
+        nav ul li a:hover, nav ul li a:focus { background-color: rgba(255, 255, 255, 0.1); }
+        .header-login-btn { margin-left: auto; }
+        .header-login-btn a { background-color: var(--header-login-btn-bg); color: var(--header-login-btn-text); text-decoration: none; padding: 8px 18px; display: flex; align-items: center; border-radius: 4px; font-family: var(--english-font); font-size: 0.95em; font-weight: bold; transition: background-color 0.3s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .header-login-btn a:hover { background-color: #eea236; }
+        .header-login-btn a i { margin-right: 6px; }
+        main { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 40px 0; }
+        .login-box { background-color: var(--login-box-bg); padding: 30px 35px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); width: 100%; max-width: 450px; border: 1px solid #d0e5f2; }
+        .login-instruction { text-align: center; margin-bottom: 25px; font-size: 1.05em; color: #005680; }
+        .login-instruction strong { font-family: var(--english-font); color: #004060; }
+        .login-form { margin-top: 20px; }
+        .input-group { display: flex; margin-bottom: 18px; border: 1px solid var(--input-border); border-radius: 4px; overflow: hidden; background-color: #fff; }
+        .input-group i { background-color: var(--input-icon-bg); padding: 10px 12px; color: #495057; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--input-border); min-width: 40px; }
+        .input-group input { flex-grow: 1; border: none; padding: 10px 12px; font-size: 1em; font-family: var(--bengali-font); outline: none; }
+        .input-group input::placeholder { color: #888; font-family: var(--bengali-font); }
+        /* Style for error message */
+        #errorMessage { color: var(--highlight-color); font-size: 0.9em; text-align: center; margin-top: 15px; min-height: 1.2em; /* Reserve space */ }
+        .login-options { display: flex; justify-content: space-between; align-items: center; margin-top: 5px; /* Reduced margin-top */ }
+        .forgot-password { color: var(--highlight-color); text-decoration: none; font-size: 0.9em; }
+        .forgot-password:hover { text-decoration: underline; }
+        .login-submit-btn { background-color: var(--login-btn-bg); color: var(--login-btn-text); border: none; padding: 10px 20px; border-radius: 4px; font-size: 1em; font-weight: bold; cursor: pointer; transition: background-color 0.3s ease; font-family: var(--english-font); display: inline-flex; align-items: center; }
+        .login-submit-btn i { margin-right: 6px; }
+        .login-submit-btn:hover { background-color: #4cae4c; }
+        footer { background-color: var(--header-footer-bg); color: var(--header-footer-text); padding: 20px 0; text-align: center; font-size: 0.9em; position: relative; flex-shrink: 0; }
+        .footer-container p { margin-bottom: 8px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+        .footer-container p:last-child { margin-bottom: 0; }
+        .footer-container p i { margin-right: 8px; font-size: 1.1em; }
+        .help-widget { position: fixed; bottom: 15px; right: 15px; z-index: 1010; text-align: center; }
+        .help-widget .close-widget { position: absolute; top: -5px; right: -5px; background-color: #555; color: white; border-radius: 50%; width: 20px; height: 20px; line-height: 18px; text-align: center; font-size: 14px; cursor: pointer; border: 1px solid #fff; font-family: var(--english-font); }
+        .help-widget .help-graphic { display: block; background-color: #3498db; color: white; padding: 10px 20px; border-radius: 5px 5px 0 0; font-size: 1.5em; font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif; margin-bottom: -1px; }
+        .help-widget .help-button { background-color: #d9534f; color: white; border: none; padding: 10px 20px; font-size: 1em; font-weight: bold; cursor: pointer; border-radius: 0 0 5px 5px; width: 100%; font-family: var(--english-font); transition: background-color 0.3s ease; }
+        .help-widget .help-button:hover { background-color: #c9302c; }
+
+        /* Responsive Adjustments (Same as previous login page) */
+         @media (max-width: 768px) {
+            .header-container { flex-direction: column; align-items: center; }
+            .logo { margin-bottom: 10px;}
+            nav { order: 3; margin-top: 10px; width: 100%; overflow-x: auto;}
+            nav ul { justify-content: center; flex-wrap: wrap;}
+            nav ul li { margin: 3px 5px;}
+            .header-login-btn { order: 2; margin-left: 0; margin-bottom: 10px;}
+            main { padding: 20px 0; align-items: flex-start; }
+            .login-box { max-width: 90%; padding: 20px 25px; margin-top: 20px;}
+            .login-instruction { font-size: 1em; }
+            .input-group input { font-size: 0.95em; }
+            .login-options { flex-direction: column; align-items: stretch; }
+            .forgot-password { text-align: center; margin-bottom: 15px;}
+            .login-submit-btn { width: 100%; justify-content: center; }
+            .footer-container p { font-size: 0.85em; flex-direction: column; align-items: center; }
+            .footer-container p i { margin-right: 0; margin-bottom: 3px; }
+        }
+         @media (max-width: 480px) {
+            .logo { font-size: 1.3em; }
+            nav ul li a { font-size: 0.9em; }
+            .header-login-btn a { font-size: 0.9em; padding: 7px 15px;}
+            .login-box { padding: 20px 20px; }
+            .login-instruction { font-size: 0.95em; }
+            .input-group input { font-size: 0.9em; }
+            .forgot-password { font-size: 0.85em; }
+            .login-submit-btn { font-size: 0.95em; padding: 9px 15px;}
+            .help-widget { right: 10px; bottom: 10px; }
+            .help-widget .help-graphic { font-size: 1.2em; padding: 8px 15px; }
+            .help-widget .help-button { font-size: 0.9em; padding: 8px 15px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">KU</div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> Prospectus</a></li>
+                    <li><a href="#"><i class="fas fa-money-bill-wave"></i> Fees</a></li>
+                    <li><a href="#"><i class="fas fa-list-alt"></i> How To Pay</a></li>
+                </ul>
+            </nav>
+            <div class="header-login-btn">
+                <a href="#"><i class="fas fa-sign-in-alt"></i> Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="login-box">
+            <p class="login-instruction">
+                সুপ্রিয় আবেদনকারী<br>
+                আপনার ইউজারনেম ও পাসওয়ার্ড ইনপুট দিন এবং <strong>Login</strong> বাটনে ক্লিক করুন।
+            </p>
+            <!-- Add id to form -->
+            <form class="login-form" id="loginForm" action="#">
+                <div class="input-group">
+                    <i class="fas fa-user-circle"></i>
+                    <!-- Add id to username input -->
+                    <input type="text" id="username" placeholder="আপনার ইউজারনেম টাইপ করুন" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <!-- Add id to password input -->
+                    <input type="password" id="password" placeholder="আপনার পাসওয়ার্ড টাইপ করুন" required>
+                </div>
+                <!-- Add div for error message -->
+                <div id="errorMessage"></div>
+                <div class="login-options">
+                    <a href="#" class="forgot-password">ইউজারনেম ও পাসওয়ার্ড ভুলে গেলে ক্লিক করুন</a>
+                    <button type="submit" class="login-submit-btn">
+                        <i class="fas fa-arrow-right"></i> Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <p><i class="far fa-calendar-alt"></i> অনলাইনে আবেদনের সময়সীমা: 10-01-2025 থেকে 10-02-2025</p>
+            <p>সর্বস্বত্ব © সংরক্ষিত | খুলনা বিশ্ববিদ্যালয় ভর্তি কমিটি ২০২৪-২০২৫</p>
+            <p>কারিগরি সহযোগিতায় - KU ICT CELL</p>
+        </div>
+
+        <div class="help-widget">
+            <span class="close-widget">×</span>
+            <div class="help-graphic">We are here!</div>
+            <button class="help-button">KU Admission Help Desk</button>
+        </div>
+    </footer>
+
+    <script>
+        // --- Login Logic ---
+
+        // 1. Define correct credentials (using a JavaScript object literal, similar to JSON)
+        const correctCredentials = {
+            username: "672500",
+            password: "8151"
+        };
+
+        // 2. Get references to HTML elements
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const errorMessageDiv = document.getElementById('errorMessage');
+
+        // 3. Add event listener for form submission
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission (page reload)
+
+            // 4. Get user input (and trim whitespace)
+            const enteredUsername = usernameInput.value.trim();
+            const enteredPassword = passwordInput.value.trim();
+
+            // 5. Clear any previous error message
+            errorMessageDiv.textContent = '';
+
+            // 6. Check credentials
+            if (enteredUsername === correctCredentials.username && enteredPassword === correctCredentials.password) {
+                // Success: Redirect to dashboard.html
+                console.log("Login successful! Redirecting..."); // Optional: for debugging
+                window.location.href = 'dashboard.html';
+            } else {
+                // Failure: Display error message
+                console.log("Login failed!"); // Optional: for debugging
+                errorMessageDiv.textContent = 'ইউজারনেম বা পাসওয়ার্ড সঠিক নয়। অনুগ্রহ করে আবার চেষ্টা করুন।'; // Bengali error message
+                // Or English: errorMessageDiv.textContent = 'Incorrect username or password. Please try again.';
+            }
+        });
+
+
+        // --- Help Widget Logic (Same as before) ---
+        const helpWidget = document.querySelector('.help-widget');
+        const closeButton = document.querySelector('.close-widget');
+
+        if (closeButton && helpWidget) {
+            closeButton.addEventListener('click', () => {
+                helpWidget.style.display = 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>

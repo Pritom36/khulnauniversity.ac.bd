@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choice - KU Admission</title>
+    <!-- Embed Font Awesome CSS directly -->
+    <style>
+        /*!
+         * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
+         * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+         */
+        /* Linking CDN for brevity. For true single file, paste the minified CSS here */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+        /* Custom Styles (Includes styles from previous version) */
+        :root {
+            --header-footer-bg: #008080; --header-footer-text: #ffffff; --active-nav-bg: #f0ad4e; --active-nav-text: #333333; --content-bg: #f0fff0; --table-header-bg: #1E8474; --text-color: #333333; --link-color: #0056b3; --highlight-color: #d9534f; --update-btn-bg: #337ab7; --unit-box-bg: #5cb85c; --note-bg: #f8d7da; --note-text: #721c24; --note-border: #f5c6cb; --bengali-font: 'SolaimanLipi', 'Segoe UI', sans-serif; --english-font: 'Segoe UI', Arial, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--bengali-font); background-color: #f4f4f4; color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        header { background-color: var(--header-footer-bg); color: var(--header-footer-text); padding: 10px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: bold; font-size: 1.5em; background-color: #fff; color: var(--header-footer-bg); padding: 5px 10px; border-radius: 4px; display: flex; align-items: center; justify-content: center; min-width: 50px; min-height: 40px; font-family: var(--english-font); }
+        nav ul { list-style: none; display: flex; align-items: center; padding: 0; margin: 0; }
+        nav ul li { margin-left: 5px; }
+        nav ul li a { color: var(--header-footer-text); text-decoration: none; padding: 10px 12px; display: flex; align-items: center; border-radius: 4px; font-family: var(--english-font); font-size: 0.9em; transition: background-color 0.3s ease; }
+        nav ul li a i { margin-right: 6px; }
+        nav ul li a:hover, nav ul li a:focus { background-color: rgba(255, 255, 255, 0.1); }
+        nav ul li a.active { background-color: var(--active-nav-bg); color: var(--active-nav-text); font-weight: bold; }
+        .logout { margin-left: auto; }
+        .logout a { color: var(--header-footer-text); text-decoration: none; padding: 10px 15px; display: flex; align-items: center; font-family: var(--english-font); font-size: 0.9em; transition: background-color 0.3s ease; border-radius: 4px; cursor: pointer; /* Make it look clickable */ }
+        .logout a:hover { background-color: rgba(255, 255, 255, 0.1); }
+        .logout a i { margin-right: 6px; }
+        main { padding: 30px 0; flex-grow: 1; }
+        .content-container { max-width: 1140px; }
+        .choice-box { background-color: var(--content-bg); padding: 25px 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .choice-title { text-align: center; margin-bottom: 10px; font-size: 1.6em; color: var(--table-header-bg); font-weight: bold; }
+        .choice-instructions { text-align: center; margin-bottom: 10px; font-size: 1.0em; color: #555; line-height: 1.7; }
+        .choice-instructions strong { font-weight: bold; color: var(--highlight-color); font-family: var(--english-font); }
+        .choice-instructions .action-keyword { color: var(--link-color); font-weight: bold; font-family: var(--english-font); }
+        .choice-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 20px; margin-bottom: 25px; }
+        .choice-table { width: 100%; min-width: 1000px; border-collapse: collapse; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-radius: 5px; overflow: hidden; }
+        .choice-table thead th { background-color: var(--table-header-bg); color: var(--header-footer-text); padding: 12px 10px; text-align: center; font-weight: bold; font-size: 1.0em; border-right: 1px solid rgba(255, 255, 255, 0.2); white-space: nowrap; }
+        .choice-table thead th:last-child { border-right: none; }
+        .choice-table tbody td { padding: 10px 10px; text-align: center; border-top: 1px solid #ddd; background-color: #fff; font-size: 0.95em; font-family: var(--english-font); vertical-align: middle; }
+        .choice-table tbody td:nth-child(1), .choice-table tbody td:nth-child(3), .choice-table tbody td:nth-child(4) { font-family: var(--bengali-font); }
+        .choice-table tbody td:nth-child(4) { font-family: var(--english-font); }
+        .unit-badge { display: inline-block; padding: 5px 15px; background-color: var(--unit-box-bg); color: white; border-radius: 4px; font-weight: bold; font-size: 1em; min-width: 40px; font-family: var(--english-font); }
+        .choice-list-cell { text-align: left; padding: 15px; vertical-align: top; }
+        .choice-list { list-style: none; padding: 0; margin: 0; font-family: var(--english-font); }
+        .choice-item { display: flex; align-items: center; margin-bottom: 8px; }
+        .choice-item:last-child { margin-bottom: 0; }
+        .choice-label { flex: 0 0 80px; font-size: 0.9em; color: #555; padding-right: 10px; white-space: nowrap; }
+        .choice-select { flex-grow: 1; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95em; font-family: var(--english-font); background-color: #fff; max-width: 350px; }
+        /* Style for disabled options */
+        .choice-select option:disabled { color: #ccc; background-color: #f8f8f8; }
+        .update-button { background-color: var(--update-btn-bg); color: white; border: none; padding: 8px 18px; border-radius: 4px; font-size: 0.9em; font-weight: bold; cursor: pointer; transition: background-color 0.3s ease; font-family: var(--english-font); }
+        .update-button:hover { background-color: #286090; }
+        .important-note { background-color: var(--note-bg); color: var(--note-text); border: 1px solid var(--note-border); padding: 15px 20px; border-radius: 5px; margin-top: 20px; font-size: 0.95em; line-height: 1.7; }
+        .important-note strong { font-weight: bold; }
+        footer { background-color: var(--header-footer-bg); color: var(--header-footer-text); padding: 20px 0; text-align: center; font-size: 0.9em; position: relative; margin-top: 40px; flex-shrink: 0; }
+        .footer-container p { margin-bottom: 8px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+        .footer-container p:last-child { margin-bottom: 0; }
+        .footer-container p i { margin-right: 8px; font-size: 1.1em; }
+        .help-widget { position: fixed; bottom: 15px; right: 15px; z-index: 1010; text-align: center; }
+        .help-widget .close-widget { position: absolute; top: -5px; right: -5px; background-color: #555; color: white; border-radius: 50%; width: 20px; height: 20px; line-height: 18px; text-align: center; font-size: 14px; cursor: pointer; border: 1px solid #fff; font-family: var(--english-font); }
+        .help-widget .help-graphic { display: block; background-color: #3498db; color: white; padding: 10px 20px; border-radius: 5px 5px 0 0; font-size: 1.5em; font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif; margin-bottom: -1px; }
+        .help-widget .help-button { background-color: #d9534f; color: white; border: none; padding: 10px 20px; font-size: 1em; font-weight: bold; cursor: pointer; border-radius: 0 0 5px 5px; width: 100%; font-family: var(--english-font); transition: background-color 0.3s ease; }
+        .help-widget .help-button:hover { background-color: #c9302c; }
+
+        /* Responsive Adjustments (Same as previous version) */
+        @media (max-width: 1200px) { .container { width: 95%; } }
+        @media (max-width: 992px) { nav ul li a { padding: 8px 8px; font-size: 0.85em; } .logout a { padding: 8px 10px; font-size: 0.85em; } .logo { font-size: 1.3em; } .choice-title { font-size: 1.4em; } .choice-table thead th, .choice-table tbody td { padding: 10px 8px; font-size: 0.9em;} .choice-label { flex-basis: 70px; font-size: 0.85em; } .choice-select { font-size: 0.9em; } .update-button { padding: 7px 15px; font-size: 0.85em; } .important-note { font-size: 0.9em; } }
+        @media (max-width: 768px) { .header-container { flex-direction: column; align-items: flex-start; } nav { margin-top: 10px; width: 100%; overflow-x: auto; } nav ul { justify-content: flex-start; flex-wrap: nowrap; } nav ul li { margin-left: 0; margin-right: 5px; } .logout { margin-top: 10px; margin-left: 0; align-self: flex-start; } main { padding: 20px 0; } .choice-box { padding: 20px 15px;} .choice-title { font-size: 1.3em; } .choice-instructions { font-size: 0.95em; } .choice-table thead th, .choice-table tbody td { padding: 8px 6px; font-size: 0.85em;} .choice-item { flex-direction: column; align-items: flex-start; margin-bottom: 12px;} .choice-label { flex-basis: auto; margin-bottom: 3px; font-size: 0.8em; } .choice-select { width: 100%; max-width: none; font-size: 0.9em;} .important-note { font-size: 0.85em; padding: 12px 15px; } .footer-container p { font-size: 0.85em; flex-direction: column; align-items: center; } .footer-container p i { margin-right: 0; margin-bottom: 3px; } }
+        @media (max-width: 480px) { .logo { font-size: 1.1em; padding: 4px 8px; } nav ul li a { padding: 6px 6px; font-size: 0.8em; } .logout a { padding: 6px 8px; font-size: 0.8em; } .choice-title { font-size: 1.2em; } .choice-instructions { font-size: 0.9em; } .choice-table thead th, .choice-table tbody td { font-size: 0.8em;} .update-button { padding: 6px 12px; font-size: 0.8em; } .important-note { font-size: 0.8em; } .help-widget { right: 10px; bottom: 10px; } .help-widget .help-graphic { font-size: 1.2em; padding: 8px 15px; } .help-widget .help-button { font-size: 0.9em; padding: 8px 15px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">KU</div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="application.html"><i class="fas fa-edit"></i> Application</a></li>
+                    <li><a href="application-payment.html"><i class="fas fa-money-check-alt"></i> Application Payment</a></li>
+                    <li><a href="admit.html"><i class="fas fa-id-card"></i> Admit Card</a></li>
+                    <li><a href="result.html"><i class="fas fa-poll"></i> Result</a></li>
+                    <li><a href="choice.html"><i class="fas fa-check-square"></i> Choice</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container content-container">
+            <div class="choice-box">
+                <h2 class="choice-title">আবেদনকারীর পছন্দক্রম</h2>
+                <p class="choice-instructions">
+                    উত্তীর্ণ ইউনিটের ভর্তিচ্ছু ডিসিপ্লিনসমূহের পছন্দক্রম নির্বাচন করুন এবং <strong>Submit</strong> বাটনে ক্লিক করুন। নির্বাচিত পছন্দক্রম হালনাগাদ করতে চাইলে ইউনিটভিত্তিক উল্লিখিত সময়ের মধ্যে পছন্দক্রম পরিবর্তন করে <span class="action-keyword">Update</span> বাটনে ক্লিক করুন।
+                </p>
+                <p class="choice-instructions">
+                    পছন্দক্রম প্রদান/হালনাগাদের সময়সীমা অতিবাহিত হওয়ার পর স্লিপটি <strong>Print</strong> করে সংরক্ষণ করুন।
+                </p>
+
+                <div class="choice-table-wrapper">
+                    <table class="choice-table">
+                        <thead>
+                            <tr>
+                                <th>ইউনিট</th> <th>রোল নম্বর</th> <th>মেধাক্রম</th> <th>কোটা</th>
+                                <th>পছন্দক্রম</th> <th>শুরু</th> <th>পর্যন্ত</th> <th>সম্পাদন</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="unit-badge">A</span></td>
+                                <td>113438</td> <td>841</td> <td>General</td>
+                                <td class="choice-list-cell">
+                                    <ul class="choice-list">
+                                        <!-- Add IDs to select elements -->
+                                        <li class="choice-item">
+                                            <span class="choice-label">1<sup>st</sup> Choice:</span>
+                                            <select class="choice-select" id="choice1" name="choice1">
+                                                <option value="">-- Select --</option> <!-- Add a default empty option -->
+                                                <option value="CSE">Computer Science and Engineering</option>
+                                                <option value="STAT">Statistics</option>
+                                                <option value="ECE">Electronics and Communication Engineering</option>
+                                                <option value="MATH">Mathematics</option>
+                                                <option value="PHY">Physics</option>
+                                                <option value="CHEM">Chemistry</option>
+                                                <option value="URP">Urban and Rural Planning</option>
+                                            </select>
+                                        </li>
+                                        <li class="choice-item">
+                                            <span class="choice-label">2<sup>nd</sup> Choice:</span>
+                                            <select class="choice-select" id="choice2" name="choice2">
+                                                <option value="">-- Select --</option>
+                                                <option value="CSE">Computer Science and Engineering</option>
+                                                <option value="STAT">Statistics</option>
+                                                <option value="ECE">Electronics and Communication Engineering</option>
+                                                <option value="MATH">Mathematics</option>
+                                                <option value="PHY">Physics</option>
+                                                <option value="CHEM">Chemistry</option>
+                                                <option value="URP">Urban and Rural Planning</option>
+                                            </select>
+                                        </li>
+                                        <li class="choice-item">
+                                            <span class="choice-label">3<sup>rd</sup> Choice:</span>
+                                            <select class="choice-select" id="choice3" name="choice3">
+                                                 <option value="">-- Select --</option>
+                                                <option value="CSE">Computer Science and Engineering</option>
+                                                <option value="STAT">Statistics</option>
+                                                <option value="ECE">Electronics and Communication Engineering</option>
+                                                <option value="MATH">Mathematics</option>
+                                                <option value="PHY">Physics</option>
+                                                <option value="CHEM">Chemistry</option>
+                                                <option value="URP">Urban and Rural Planning</option>
+                                            </select>
+                                        </li>
+                                        <li class="choice-item">
+                                            <span class="choice-label">4<sup>th</sup> Choice:</span>
+                                            <select class="choice-select" id="choice4" name="choice4">
+                                                 <option value="">-- Select --</option>
+                                                <option value="CSE">Computer Science and Engineering</option>
+                                                <option value="STAT">Statistics</option>
+                                                <option value="ECE">Electronics and Communication Engineering</option>
+                                                <option value="MATH">Mathematics</option>
+                                                <option value="PHY">Physics</option>
+                                                <option value="CHEM">Chemistry</option>
+                                                <option value="URP">Urban and Rural Planning</option>
+                                            </select>
+                                        </li>
+                                         <li class="choice-item">
+                                            <span class="choice-label">5<sup>th</sup> Choice:</span>
+                                            <select class="choice-select" id="choice5" name="choice5">
+                                                 <option value="">-- Select --</option>
+                                                <option value="CSE">Computer Science and Engineering</option>
+                                                <option value="STAT">Statistics</option>
+                                                <option value="ECE">Electronics and Communication Engineering</option>
+                                                <option value="MATH">Mathematics</option>
+                                                <option value="PHY">Physics</option>
+                                                <option value="CHEM">Chemistry</option>
+                                                <option value="URP">Urban and Rural Planning</option>
+                                            </select>
+                                        </li>
+                                         <li class="choice-item">
+                                            <span class="choice-label">6<sup>th</sup> Choice:</span>
+                                            <select class="choice-select" id="choice6" name="choice6">
+                                                 <option value="">-- Select --</option>
+                                                <option value="CSE">Computer Science and Engineering</option>
+                                                <option value="STAT">Statistics</option>
+                                                <option value="ECE">Electronics and Communication Engineering</option>
+                                                <option value="MATH">Mathematics</option>
+                                                <option value="PHY">Physics</option>
+                                                <option value="CHEM">Chemistry</option>
+                                                <option value="URP">Urban and Rural Planning</option>
+                                            </select>
+                                        </li>
+                                        <li class="choice-item">
+                                            <span class="choice-label">7<sup>th</sup> Choice:</span>
+                                            <select class="choice-select" id="choice7" name="choice7">
+                                                 <option value="">-- Select --</option>
+                                                <option value="CSE">Computer Science and Engineering</option>
+                                                <option value="STAT">Statistics</option>
+                                                <option value="ECE">Electronics and Communication Engineering</option>
+                                                <option value="MATH">Mathematics</option>
+                                                <option value="PHY">Physics</option>
+                                                <option value="CHEM">Chemistry</option>
+                                                <option value="URP">Urban and Rural Planning</option>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>2025-05-01 00:00:00</td>
+                                <td>2025-05-03 23:59:59</td>
+                                <!-- Add ID to button -->
+                                <td><button class="update-button" id="updateButton">Update</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="important-note">
+                    <strong>বি. দ্র.:</strong> একাধিক কোটায় উত্তীর্ণ প্রার্থীদের স্ব স্ব ইউনিট অনুযায়ী পৃথক পৃথকভাবে প্রতিটি কোটার পছন্দক্রম পূরণ করতে হবে।
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <p><i class="far fa-calendar-alt"></i> অনলাইনে আবেদনের সময়সীমা: 10-01-2025 থেকে 10-02-2025</p>
+            <p>সর্বস্বত্ব © সংরক্ষিত | খুলনা বিশ্ববিদ্যালয় ভর্তি কমিটি ২০২৪-২০২৫</p>
+            <p>কারিগরি সহযোগিতায় - KU ICT CELL</p>
+        </div>
+
+        <div class="help-widget">
+            <span class="close-widget">&times;</span>
+            <div class="help-graphic">We are here!</div>
+            <button class="help-button">KU Admission Help Desk</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const choiceSelects = document.querySelectorAll('.choice-select');
+            const updateButton = document.getElementById('updateButton');
+            const logoutButton = document.getElementById('logoutButton');
+            const localStorageKey = 'kuUserChoices'; // Key for local storage
+
+            // --- Function to handle disabling/enabling options ---
+            function handleChoiceChange() {
+                const selectedValues = new Set();
+                // Collect all selected values (ignore empty selections)
+                choiceSelects.forEach(select => {
+                    if (select.value) {
+                        selectedValues.add(select.value);
+                    }
+                });
+
+                // Enable/disable options in all selects
+                choiceSelects.forEach(currentSelect => {
+                    const currentValue = currentSelect.value;
+                    currentSelect.querySelectorAll('option').forEach(option => {
+                        // Disable if value is selected elsewhere AND it's not the current select's value
+                        if (option.value && selectedValues.has(option.value) && option.value !== currentValue) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false; // Enable otherwise
+                        }
+                    });
+                });
+            }
+
+            // --- Function to save choices to Local Storage ---
+            function saveChoices() {
+                const choices = [];
+                choiceSelects.forEach(select => {
+                    choices.push(select.value); // Store the selected value (or empty string)
+                });
+                try {
+                    localStorage.setItem(localStorageKey, JSON.stringify(choices));
+                    console.log('Choices saved:', choices); // For debugging
+                } catch (error) {
+                    console.error("Could not save choices to local storage:", error);
+                    // Optionally alert the user if saving fails
+                    // alert("Could not save your choices. Local storage might be full or disabled.");
+                }
+            }
+
+            // --- Function to load choices from Local Storage ---
+            function loadChoices() {
+                try {
+                    const savedChoicesJSON = localStorage.getItem(localStorageKey);
+                    if (savedChoicesJSON) {
+                        const savedChoices = JSON.parse(savedChoicesJSON);
+                        if (Array.isArray(savedChoices) && savedChoices.length === choiceSelects.length) {
+                            choiceSelects.forEach((select, index) => {
+                                // Check if the saved value exists as an option before setting
+                                if (select.querySelector(`option[value="${savedChoices[index]}"]`)) {
+                                     select.value = savedChoices[index];
+                                } else {
+                                     select.value = ""; // Default to empty if saved value is invalid
+                                }
+                            });
+                            console.log('Choices loaded:', savedChoices); // For debugging
+                        } else {
+                            console.warn('Saved choices format is invalid or length mismatch.');
+                        }
+                    }
+                } catch (error) {
+                    console.error("Could not load or parse choices from local storage:", error);
+                    // Clear potentially corrupted data
+                    // localStorage.removeItem(localStorageKey);
+                }
+                // Update disabled options based on loaded choices
+                handleChoiceChange();
+            }
+
+            // --- Event Listeners ---
+
+            // Add change listener to each select dropdown
+            choiceSelects.forEach(select => {
+                select.addEventListener('change', handleChoiceChange);
+            });
+
+            // Add click listener to the Update button
+            if (updateButton) {
+                updateButton.addEventListener('click', () => {
+                    saveChoices(); // Save the current selections
+                    alert('Choices Updated Successfully!'); // Show confirmation
+                });
+            }
+
+            // Add click listener to the Logout button
+             if (logoutButton) {
+                 logoutButton.addEventListener('click', (e) => {
+                     e.preventDefault(); // Prevent default link behavior if it was an <a>
+                     // Optional: Clear saved choices on logout
+                     // localStorage.removeItem(localStorageKey);
+                     // Redirect to login page (make sure 'login.html' is the correct filename)
+                     window.location.href = 'login.html';
+                 });
+             }
+
+             // --- Help Widget Logic ---
+            const helpWidget = document.querySelector('.help-widget');
+            const closeButton = document.querySelector('.close-widget');
+            if (closeButton && helpWidget) {
+                closeButton.addEventListener('click', () => {
+                    helpWidget.style.display = 'none';
+                });
+            }
+
+            // --- Initial Load ---
+            loadChoices(); // Load saved choices when the page is ready
+
+        }); // End DOMContentLoaded
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result - KU Admission</title>
+    <!-- Embed Font Awesome CSS directly -->
+    <style>
+        /*!
+         * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
+         * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+         */
+        /* For this example, linking CDN for brevity. For true single file, paste the minified CSS here */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+        /* Custom Styles */
+        :root {
+            --header-footer-bg: #008080; /* Teal-like color */
+            --header-footer-text: #ffffff;
+            --active-nav-bg: #f0ad4e; /* Orange */
+            --active-nav-text: #333333;
+            --content-bg: #f0fff0; /* Very light green/Honeydew */
+            --table-header-bg: #1E8474; /* Darker teal/green from table */
+            --text-color: #333333;
+            --link-color: #0056b3;
+            --highlight-color: #d9534f; /* Reddish for Choice link */
+            --unit-box-bg: #5cb85c; /* Green for unit 'A' */
+            --bengali-font: 'SolaimanLipi', 'Segoe UI', sans-serif;
+            --english-font: 'Segoe UI', Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--bengali-font);
+            background-color: #f4f4f4; /* Light grey background for contrast */
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles (Same as before) */
+        header {
+            background-color: var(--header-footer-bg);
+            color: var(--header-footer-text);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5em;
+            background-color: #fff;
+            color: var(--header-footer-bg);
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 50px;
+            min-height: 40px;
+            font-family: var(--english-font);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin-left: 5px;
+        }
+
+        nav ul li a {
+            color: var(--header-footer-text);
+            text-decoration: none;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+            font-family: var(--english-font);
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a i {
+            margin-right: 6px;
+        }
+
+        nav ul li a:hover,
+        nav ul li a:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        nav ul li a.active {
+            background-color: var(--active-nav-bg);
+            color: var(--active-nav-text);
+            font-weight: bold;
+        }
+
+        .logout {
+            margin-left: auto;
+        }
+
+        .logout a {
+            color: var(--header-footer-text);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            font-family: var(--english-font);
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+            border-radius: 4px;
+        }
+         .logout a:hover {
+             background-color: rgba(255, 255, 255, 0.1);
+         }
+
+        .logout a i {
+            margin-right: 6px;
+        }
+
+        /* Main Content Styles */
+        main {
+             /* Removed background from main, will apply to inner container */
+            padding: 30px 0;
+            min-height: calc(100vh - 150px); /* Adjust based on header/footer height */
+        }
+
+        .content-container {
+            max-width: 1100px; /* Adjust width if needed */
+        }
+
+        .result-box {
+            background-color: var(--content-bg);
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .result-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            color: var(--table-header-bg); /* Match table header color */
+            font-weight: bold;
+        }
+
+        .result-description {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.0em;
+            color: #555;
+        }
+
+        .result-description strong { /* Style for the 'Choice' part */
+             color: var(--highlight-color);
+             font-weight: bold;
+        }
+         .result-description .date-range { /* Style for the date part */
+             color: #333;
+             font-weight: normal;
+             font-family: var(--english-font);
+         }
+
+
+        /* Table Styles */
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 1px solid #ddd; /* Light border around table */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+             overflow: hidden; /* Ensures border-radius applies to corners */
+             border-radius: 5px;
+        }
+
+        .result-table thead th {
+            background-color: var(--table-header-bg);
+            color: var(--header-footer-text);
+            padding: 12px 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-right: 1px solid rgba(255, 255, 255, 0.2); /* Subtle separators */
+        }
+         .result-table thead th:last-child {
+             border-right: none;
+         }
+
+        .result-table tbody td {
+            padding: 12px 15px;
+            text-align: center;
+            border-top: 1px solid #ddd; /* Row separators */
+            background-color: #fff; /* White background for data rows */
+            font-size: 1.0em;
+             font-family: var(--english-font); /* Use English font for data like roll, merit */
+        }
+
+         .result-table tbody td:first-child {
+              font-family: var(--bengali-font); /* Keep bengali font for unit potentially */
+              text-align: center;
+         }
+
+         .result-table tbody tr:nth-child(even) td {
+            /* background-color: #f9f9f9; */ /* Optional: Zebra striping */
+        }
+
+        .unit-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: var(--unit-box-bg);
+            color: white;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 1em;
+            min-width: 40px;
+             font-family: var(--english-font); /* English for 'A' */
+        }
+
+        /* Footer Styles (Same as before) */
+        footer {
+            background-color: var(--header-footer-bg);
+            color: var(--header-footer-text);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9em;
+            position: relative;
+            margin-top: 40px; /* Add some space above footer */
+        }
+
+        .footer-container p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+        }
+        .footer-container p:last-child {
+            margin-bottom: 0;
+        }
+
+        .footer-container p i {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+
+        /* Help Widget Styles (Same as before) */
+        .help-widget {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 1010;
+            text-align: center;
+        }
+
+        .help-widget .close-widget {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #555;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            line-height: 18px;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid #fff;
+            font-family: var(--english-font);
+        }
+
+        .help-widget .help-graphic {
+            display: block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin-bottom: -1px;
+        }
+
+        .help-widget .help-button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 0 0 5px 5px;
+            width: 100%;
+            font-family: var(--english-font);
+            transition: background-color 0.3s ease;
+        }
+
+        .help-widget .help-button:hover {
+             background-color: #c9302c;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            nav ul li a { padding: 8px 8px; font-size: 0.85em; }
+            .logout a { padding: 8px 10px; font-size: 0.85em; }
+            .logo { font-size: 1.3em; }
+            .result-title { font-size: 1.4em; }
+            .result-table thead th, .result-table tbody td { padding: 10px 8px; font-size: 0.95em;}
+            .unit-badge { padding: 4px 10px; font-size: 0.9em;}
+        }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; align-items: flex-start; }
+            nav { margin-top: 10px; width: 100%; overflow-x: auto; }
+            nav ul { justify-content: flex-start; flex-wrap: nowrap; }
+            nav ul li { margin-left: 0; margin-right: 5px; }
+            .logout { margin-top: 10px; margin-left: 0; align-self: flex-start; }
+            main { padding: 20px 0; }
+             .result-box { padding: 20px 15px;}
+            .result-title { font-size: 1.3em; }
+            .result-description { font-size: 0.95em; }
+            .result-table thead th, .result-table tbody td { padding: 8px 5px; font-size: 0.9em;}
+             /* Force table to scroll horizontally if needed */
+             .table-responsive {
+                 overflow-x: auto;
+                 -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+                 margin-top: 15px;
+             }
+            .result-table {
+                min-width: 500px; /* Ensure table doesn't break layout too easily */
+            }
+            .footer-container p { font-size: 0.85em; flex-direction: column; align-items: center; }
+            .footer-container p i { margin-right: 0; margin-bottom: 3px; }
+        }
+
+         @media (max-width: 480px) {
+             .logo { font-size: 1.1em; padding: 4px 8px; }
+             nav ul li a { padding: 6px 6px; font-size: 0.8em; }
+             .logout a { padding: 6px 8px; font-size: 0.8em; }
+             .result-title { font-size: 1.2em; }
+             .result-description { font-size: 0.9em; }
+             .result-table thead th, .result-table tbody td { font-size: 0.85em;}
+             .unit-badge { padding: 3px 8px; font-size: 0.85em;}
+             .help-widget { right: 10px; bottom: 10px; }
+             .help-widget .help-graphic { font-size: 1.2em; padding: 8px 15px; }
+             .help-widget .help-button { font-size: 0.9em; padding: 8px 15px; }
+         }
+
+    </style>
+    <!-- Note: For a true single file without CDN, paste the full content of Font Awesome CSS here -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
+
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <!-- Placeholder for actual logo -->
+                KU
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="application.html"><i class="fas fa-edit"></i> Application</a></li>
+                    <li><a href="application-payment.html"><i class="fas fa-money-check-alt"></i> Application Payment</a></li>
+                    <li><a href="admit.html"><i class="fas fa-id-card"></i> Admit Card</a></li>
+                    <li><a href="result.html"><i class="fas fa-poll"></i> Result</a></li>
+                    <li><a href="choice.html"><i class="fas fa-check-square"></i> Choice</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container content-container">
+            <div class="result-box">
+                <h2 class="result-title">আবেদনকারীর ফলাফল</h2>
+                <p class="result-description">
+                    পরীক্ষায়দানকৃত যে সকল ইউনিটে আপনি যোগ্য বলে বিবেচিত হয়েছেন তার মেধাক্রম নিম্নরূপ<br>
+                    <strong>Choice</strong> মেনু থেকে যথাসময়ে উত্তীর্ণ ইউনিটের ভর্তিচ্ছু ডিসিপ্লিনসমূহের পছন্দক্রম নির্বাচন করুন <span class="date-range">(01-05-2025 থেকে 03-05-2025)</span>
+                </p>
+
+                <div class="table-responsive"> <!-- Wrapper for responsiveness -->
+                    <table class="result-table">
+                        <thead>
+                            <tr>
+                                <th>ইউনিট</th>
+                                <th>রোল নম্বর</th>
+                                <th>কোটা</th>
+                                <th>মেধাক্রম</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="unit-badge">A</span></td>
+                                <td>113438</td>
+                                <td>General</td>
+                                <td>841</td>
+                            </tr>
+                            <!-- Add more rows here if needed -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <p><i class="far fa-calendar-alt"></i> অনলাইনে আবেদনের সময়সীমা: 10-01-2025 থেকে 10-02-2025</p>
+            <p>সর্বস্বত্ব © সংরক্ষিত | খুলনা বিশ্ববিদ্যালয় ভর্তি কমিটি ২০২৪-২০২৫</p>
+            <p>কারিগরি সহযোগিতায় - KU ICT CELL</p>
+        </div>
+
+        <div class="help-widget">
+            <span class="close-widget">&times;</span>
+            <div class="help-graphic">We are here!</div>
+            <button class="help-button">KU Admission Help Desk</button>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JS to close the help widget (Same as before)
+        const helpWidget = document.querySelector('.help-widget');
+        const closeButton = document.querySelector('.close-widget');
+
+        if (closeButton && helpWidget) {
+            closeButton.addEventListener('click', () => {
+                helpWidget.style.display = 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>
